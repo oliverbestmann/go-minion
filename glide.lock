@@ -1,5 +1,5 @@
-hash: dd60022122372759b21f76cdf06800de49a0b78535602a76732901930afeadae
-updated: 2016-02-17T20:44:07.020936521+01:00
+hash: dd219c71c372608288442706e3defe9d4b78e54c4f5a95412521cd08de751ab4
+updated: 2016-02-17T22:02:52.280676272+01:00
 imports:
 - name: github.com/bobziuchkovski/writ
   version: 08e3f25d8bc677e6dcf7b157614c712622556019
@@ -9,4 +9,6 @@ imports:
   version: b3aff83722cb2ae031a70cae984650e3a16cd20e
 - name: github.com/gorilla/mux
   version: 26a6070f849969ba72b72256e9f14cf519751690
+- name: github.com/rcrowley/go-metrics
+  version: 51425a2415d21afadfd55cd93432c0bc69e9598d
 devImports: []

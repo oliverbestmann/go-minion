@@ -3,3 +3,4 @@ import:
 - package: github.com/gorilla/mux
 - package: github.com/gorilla/handlers
 - package: github.com/bobziuchkovski/writ
+- package: github.com/rcrowley/go-metrics

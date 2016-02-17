@@ -5,6 +5,7 @@ else
   set -x GO15VENDOREXPERIMENT 1
 
   # setup fake go path for intellij
-  mkdir -p fake-go-path vendor
+  mkdir -p $GOPATH vendor
   ln -sf ../vendor $GOPATH/src
+  rm -f vendor/vendor
 end

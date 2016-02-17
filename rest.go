@@ -28,22 +28,8 @@ type RestHandler interface {
   Handle(req *http.Request, vars map[string]string) interface{}
 }
 
-type RestHandlerFunc func(req *http.Request, vars map[string]string) interface{}
-
-type funcRestHandler struct {
-  handle RestHandlerFunc
-}
-
-func (h funcRestHandler) Handle(req *http.Request, vars map[string]string) interface{} {
-  return h.handle(req, vars)
-}
-
 func (r *Router) AddRestHandler(path string, handler RestHandler) *mux.Route {
   return r.Handle(path, httpBasicHandler{handler})
-}
-
-func (r *Router) AddRestHandlerFunc(path string, handler RestHandlerFunc) *mux.Route {
-  return r.AddRestHandler(path, funcRestHandler{handler})
 }
 
 // ListenAndServe is a convenience method to start a server with
