@@ -18,6 +18,12 @@ type Response struct {
   Content interface{}
 }
 
+type RawResponse struct {
+  Status      int
+  ContentType string
+  Content     []byte
+}
+
 type RestHandler interface {
   Handle(req *http.Request, vars map[string]string) interface{}
 }

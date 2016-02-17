@@ -5,6 +5,7 @@ import (
   "encoding/json"
   "github.com/gorilla/mux"
   "strconv"
+  "io"
 )
 
 type httpBasicHandler struct {
@@ -29,9 +30,21 @@ func writeResult(value interface{}, w http.ResponseWriter) {
   case Response:
     writeJsonResponse(w, result.Status, result.Content)
 
+  case RawResponse:
+    w.Header().Set("Content-Type", result.ContentType)
+    w.Header().Set("Content-Length", strconv.Itoa(len(result.Content)))
+    w.WriteHeader(result.Status)
+    w.Write(result.Content)
+
   case []byte:
+    w.Header().Set("Content-Length", strconv.Itoa(len(result)))
     w.WriteHeader(http.StatusOK)
     w.Write(result)
+
+  case io.ReadCloser:
+    defer result.Close()
+    w.WriteHeader(http.StatusOK)
+    io.Copy(w, result)
 
   default:
     writeJsonResponse(w, http.StatusOK, result)
