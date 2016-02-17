@@ -4,3 +4,5 @@ import:
 - package: github.com/gorilla/handlers
 - package: github.com/bobziuchkovski/writ
 - package: github.com/rcrowley/go-metrics
+- package: github.com/vistarmedia/go-datadog
+  repo: http://github.com/vistarmedia/go-datadog
