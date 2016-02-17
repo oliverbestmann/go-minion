@@ -1,0 +1,6 @@
+/fake-go-path
+/vendor
+
+/.idea
+/go-minion.iml
+
