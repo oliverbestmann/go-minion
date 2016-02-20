@@ -1,4 +1,4 @@
-package go_minion
+package minion
 
 import (
   "github.com/bobziuchkovski/writ"
