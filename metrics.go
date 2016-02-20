@@ -1,4 +1,4 @@
-package minion
+package minion // import "github.com/oliverbestmann/go-minion"
 
 import (
   "net/http"
@@ -10,11 +10,13 @@ import (
   "errors"
   "log"
   "strings"
+
+  "./rest"
 )
 
 type timerHandler struct {
   Timer   metrics.Timer
-  Handler RestHandler
+  Handler rest.RestHandler
 }
 
 func (th *timerHandler) Handle(req *http.Request, vars map[string]string) (result interface{}) {
@@ -25,11 +27,11 @@ func (th *timerHandler) Handle(req *http.Request, vars map[string]string) (resul
   return
 }
 
-func NewTimerHandler(timer metrics.Timer, handler RestHandler) RestHandler {
+func NewTimerHandler(timer metrics.Timer, handler rest.RestHandler) rest.RestHandler {
   return &timerHandler{timer, handler}
 }
 
-func NewNamedTimerHandler(name string, r metrics.Registry, handler RestHandler) RestHandler {
+func NewNamedTimerHandler(name string, r metrics.Registry, handler rest.RestHandler) rest.RestHandler {
   return &timerHandler{metrics.NewRegisteredTimer(name, r), handler}
 }
 

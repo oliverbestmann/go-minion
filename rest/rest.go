@@ -1,4 +1,4 @@
-package minion
+package rest // import "github.com/oliverbestmann/go-minion"
 
 import (
   "os"
