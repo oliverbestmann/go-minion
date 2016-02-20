@@ -1,46 +1,26 @@
 package minion // import "github.com/oliverbestmann/go-minion"
 
 import (
-  "net/http"
-  "github.com/rcrowley/go-metrics"
-  "time"
   "os"
-  "github.com/vistarmedia/go-datadog"
-  "os/exec"
-  "errors"
   "log"
+  "time"
+  "errors"
   "strings"
-
-  "./rest"
+  "os/exec"
+  "github.com/rcrowley/go-metrics"
+  "github.com/vistarmedia/go-datadog"
 )
 
-type timerHandler struct {
-  Timer   metrics.Timer
-  Handler rest.RestHandler
-}
-
-func (th *timerHandler) Handle(req *http.Request, vars map[string]string) (result interface{}) {
-  th.Timer.Time(func() {
-    result = th.Handler.Handle(req, vars)
-  })
-
-  return
-}
-
-func NewTimerHandler(timer metrics.Timer, handler rest.RestHandler) rest.RestHandler {
-  return &timerHandler{timer, handler}
-}
-
-func NewNamedTimerHandler(name string, r metrics.Registry, handler rest.RestHandler) rest.RestHandler {
-  return &timerHandler{metrics.NewRegisteredTimer(name, r), handler}
-}
-
 type MetricsConfig struct {
+  // Specify how often we want to write metrics back
   SampleInterval time.Duration
 
   // You might want to specify the hostname of the system.
   // This will override hostname auto detection.
   Hostname       string
+
+  // Print metrics to the console?
+  Console        bool
 
   Datadog        struct {
                    ApiKey string
@@ -50,8 +30,6 @@ type MetricsConfig struct {
                    // FIXME support tags!
                    Tags   []string
                  }
-
-  Console        bool
 }
 
 // Tries to get the hostname of the system by exploiting different

@@ -28,8 +28,20 @@ type RestHandler interface {
   Handle(req *http.Request, vars map[string]string) interface{}
 }
 
-func (r *Router) AddRestHandler(path string, handler RestHandler) *mux.Route {
-  return r.Handle(path, httpBasicHandler{handler})
+type RestHandlerFunc func(*http.Request, map[string]string) interface{}
+
+func (h RestHandlerFunc) Handle(req *http.Request, vars map[string]string) interface{} {
+  return h(req, vars)
+}
+
+// ServeHTTP forwards the call to the function itself.
+func (h RestHandlerFunc) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+  DefaultRestHandler{h}.ServeHTTP(w, req)
+}
+
+// Adds a rest handler directly to this
+func (r *Router) RestHandler(path string, handler RestHandler) *mux.Route {
+  return r.Handle(path, DefaultRestHandler{handler})
 }
 
 // ListenAndServe is a convenience method to start a server with
