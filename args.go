@@ -9,7 +9,7 @@ type Arguments struct {
   HelpFlag bool   `flag:"help" description:"Display this help message and exit"`
 }
 
-// ParseArguments should be calldd with something that embeds the
+// ParseArguments should be called with something that embeds the
 // Arguments type and adds more command line arguments.
 // Be aware: If an error occurs during parsing or the HelpFlag was specified,
 // this method will terminate the application!
