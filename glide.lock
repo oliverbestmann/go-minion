@@ -1,18 +1,16 @@
-hash: 171cdf560fa881b69dcafb2ccc314dd90ce694c0a32e6ddb35a9abb872e2962e
-updated: 2016-02-20T16:15:38.758741997+01:00
+hash: 65d2fee2c8bf47b631ebc04f217f19596e684d39f542530a5cdfac1f59ea89e5
+updated: 2016-02-21T18:40:36.2237302+01:00
 imports:
 - name: github.com/bobziuchkovski/writ
   version: 08e3f25d8bc677e6dcf7b157614c712622556019
+- name: github.com/goji/httpauth
+  version: fc389c3003535723411032f2e9300889389e30fa
 - name: github.com/gorilla/context
   version: 1c83b3eabd45b6d76072b66b746c20815fb2872d
 - name: github.com/gorilla/handlers
   version: b3aff83722cb2ae031a70cae984650e3a16cd20e
 - name: github.com/gorilla/mux
   version: 26a6070f849969ba72b72256e9f14cf519751690
-- name: github.com/oliverbestmann/go-minion
-  version: 6b8343c3c935f53be15340e7b278656b5674a88b
-  subpackages:
-  - rest
 - name: github.com/rcrowley/go-metrics
   version: 51425a2415d21afadfd55cd93432c0bc69e9598d
 - name: github.com/vistarmedia/go-datadog

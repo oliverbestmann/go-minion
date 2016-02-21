@@ -27,9 +27,9 @@ func NewNamedTimerHandler(name string, r metrics.Registry, handler http.Handler)
   return &timerHandler{metrics.NewRegisteredTimer(name, r), handler}
 }
 
-func MeterRequests(reg *metrics.Registry) func(http.Handler) http.Handler {
-  return func(back http.Handler) {
-    return http.HandlerFunc{func(w http.ResponseWriter, req *http.Request) {
+func MeterRequests(reg metrics.Registry) func(http.Handler) http.Handler {
+  return func(back http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
       start := time.Now()
 
       writer := statusResponseWriter{w, 200}
@@ -43,7 +43,7 @@ func MeterRequests(reg *metrics.Registry) func(http.Handler) http.Handler {
         meter := metrics.GetOrRegisterMeter(fmt.Sprintf("%s.%d", name, writer.status), reg)
         meter.Mark(1)
       }
-    }}
+    })
   }
 }
 
@@ -54,15 +54,15 @@ type statusResponseWriter struct {
   status int
 }
 
-func (rw *statusResponseWriter) WriteHeader(status int) {
+func (rw statusResponseWriter) WriteHeader(status int) {
   rw.status = status
-  return rw.ResponseWriter.WriteHeader(status)
+  rw.ResponseWriter.WriteHeader(status)
 }
 
-func (rw *statusResponseWriter) Headers() http.Header {
+func (rw statusResponseWriter) Headers() http.Header {
   return rw.ResponseWriter.Header()
 }
 
-func (rw *statusResponseWriter) Write(bytes []byte) (int, error) {
+func (rw statusResponseWriter) Write(bytes []byte) (int, error) {
   return rw.ResponseWriter.Write(bytes)
 }

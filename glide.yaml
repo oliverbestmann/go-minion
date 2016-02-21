@@ -1,4 +1,4 @@
-package: .
+package: github.com/oliverbestmann/go-minion
 import:
 - package: github.com/gorilla/mux
 - package: github.com/gorilla/handlers
@@ -6,3 +6,4 @@ import:
 - package: github.com/rcrowley/go-metrics
 - package: github.com/vistarmedia/go-datadog
   repo: http://github.com/vistarmedia/go-datadog
+- package: github.com/goji/httpauth

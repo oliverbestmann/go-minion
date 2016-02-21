@@ -57,16 +57,16 @@ func hostname() (string, error) {
   return "", errors.New("Could not determine hostname")
 }
 
-func SetupDefaultMetrics(r metrics.Registry, config MetricsConfig) {
+func SetupMetrics(r metrics.Registry, config MetricsConfig) {
   if r != nil {
     r = metrics.DefaultRegistry
   }
 
   metrics.RegisterRuntimeMemStats(r)
-  metrics.CaptureRuntimeMemStats(r, config.SampleInterval)
+  go metrics.CaptureRuntimeMemStats(r, config.SampleInterval)
 
   if config.Console {
-    metrics.WriteJSON(r, config.SampleInterval, os.Stdout)
+    go metrics.WriteJSON(r, config.SampleInterval, os.Stdout)
   }
 
   if config.Datadog.ApiKey != "" {

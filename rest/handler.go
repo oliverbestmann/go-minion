@@ -8,11 +8,11 @@ import (
   "io"
 )
 
-type DefaultRestHandler struct {
+type restHandlerImpl struct {
   RestHandler
 }
 
-func (h DefaultRestHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+func (h *restHandlerImpl) ServeHTTP(w http.ResponseWriter, req *http.Request) {
   vars := mux.Vars(req)
   result := h.Handle(req, vars)
   writeResult(result, w)

@@ -1,4 +1,4 @@
-package rest // import "github.com/oliverbestmann/go-minion"
+package rest // import "github.com/oliverbestmann/go-minion/rest"
 
 import (
   "os"
@@ -7,11 +7,8 @@ import (
   "net/http"
   "github.com/gorilla/mux"
   "github.com/gorilla/handlers"
+  "path"
 )
-
-type Router struct {
-  *mux.Router
-}
 
 type Response struct {
   Status  int
@@ -36,24 +33,23 @@ func (h RestHandlerFunc) Handle(req *http.Request, vars map[string]string) inter
 
 // ServeHTTP forwards the call to the function itself.
 func (h RestHandlerFunc) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-  DefaultRestHandler{h}.ServeHTTP(w, req)
-}
-
-// Adds a rest handler directly to this
-func (r *Router) RestHandler(path string, handler RestHandler) *mux.Route {
-  return r.Handle(path, DefaultRestHandler{handler})
-}
-
-// ListenAndServe is a convenience method to start a server with
-// this router instance
-func (r *Router) ListenAndServe(port int) {
-  ListenAndServe(port, r.Router)
+  (&restHandlerImpl{h}).ServeHTTP(w, req)
 }
 
 // ListenAndServe starts a http server on the given port and uses the
 // provided router for request dispatching and handling.
-func ListenAndServe(port int, router *mux.Router) {
+func ListenAndServe(port int, router *mux.Router, transformers ...func (http.Handler) http.Handler) {
+  var handler http.Handler = router
+  for _, mw := range transformers {
+    handler = mw(handler)
+  }
+
   log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port),
     handlers.LoggingHandler(os.Stdout,
-      handlers.RecoveryHandler()(router))))
+      handlers.RecoveryHandler()(handler))))
+}
+
+func Mount(router *mux.Router, prefix string, handler http.Handler) *mux.Route {
+  prefix = path.Clean(prefix)
+  return router.PathPrefix(prefix + "/").Handler(http.StripPrefix(prefix, handler))
 }
