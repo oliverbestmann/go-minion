@@ -58,7 +58,7 @@ func hostname() (string, error) {
 }
 
 func SetupMetrics(r metrics.Registry, config MetricsConfig) {
-  if r != nil {
+  if r == nil {
     r = metrics.DefaultRegistry
   }
 
