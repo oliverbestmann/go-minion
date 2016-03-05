@@ -11,26 +11,29 @@ import (
   "github.com/vistarmedia/go-datadog"
 )
 
-type MetricsConfig struct {
-  // Specify how often we want to write metrics back
-  SampleInterval time.Duration
+type (
+  MetricsConfig struct {
+    // Specify how often we want to write metrics back
+    SampleInterval time.Duration
 
-  // You might want to specify the hostname of the system.
-  // This will override hostname auto detection.
-  Hostname       string
+    // You might want to specify the hostname of the system.
+    // This will override hostname auto detection.
+    Hostname       string
 
-  // Print metrics to the console?
-  Console        bool
+    // Print metrics to the console?
+    Console        bool
 
-  Datadog        struct {
-                   ApiKey string
+    Datadog        DatadogConfig
+  }
+  DatadogConfig struct {
+    ApiKey string
 
-                   // Right now, tags are not supported. This is a problem with
-                   // the Datadog reporter library. Should be added shortly.
-                   // FIXME support tags!
-                   Tags   []string
-                 }
-}
+    // Right now, tags are not supported. This is a problem with
+    // the Datadog reporter library. Should be added shortly.
+    // FIXME support tags!
+    Tags   []string
+  }
+)
 
 // Tries to get the hostname of the system by exploiting different
 // sources.
@@ -79,6 +82,6 @@ func SetupMetrics(r metrics.Registry, config MetricsConfig) {
     }
 
     client := datadog.Client{host, config.Datadog.ApiKey}
-    client.Reporter(r).Start(config.SampleInterval)
+    go client.Reporter(r).Start(config.SampleInterval)
   }
 }
