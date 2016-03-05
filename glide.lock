@@ -1,18 +1,22 @@
 hash: 65d2fee2c8bf47b631ebc04f217f19596e684d39f542530a5cdfac1f59ea89e5
-updated: 2016-02-21T18:40:36.2237302+01:00
+updated: 2016-03-05T22:33:11.207150264Z
 imports:
 - name: github.com/bobziuchkovski/writ
   version: 08e3f25d8bc677e6dcf7b157614c712622556019
 - name: github.com/goji/httpauth
   version: fc389c3003535723411032f2e9300889389e30fa
 - name: github.com/gorilla/context
-  version: 1c83b3eabd45b6d76072b66b746c20815fb2872d
+  version: 1ea25387ff6f684839d82767c1733ff4d4d15d0a
 - name: github.com/gorilla/handlers
-  version: b3aff83722cb2ae031a70cae984650e3a16cd20e
+  version: ee54c7b44cab12289237fb8631314790076e728b
 - name: github.com/gorilla/mux
-  version: 26a6070f849969ba72b72256e9f14cf519751690
+  version: 147a95f5e36a65f1c7b29440b9b0283aab154693
+- name: github.com/oliverbestmann/go-minion
+  version: 5e4edbe6cc9bca5f2222f5eac7df6856c5fc6644
+  subpackages:
+  - rest
 - name: github.com/rcrowley/go-metrics
-  version: 51425a2415d21afadfd55cd93432c0bc69e9598d
+  version: eeba7bd0dd01ace6e690fa833b3f22aaec29af43
 - name: github.com/vistarmedia/go-datadog
   version: d05578420bfaf173df31fc00580f57b904df6222
   repo: http://github.com/vistarmedia/go-datadog
