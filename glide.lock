@@ -1,5 +1,5 @@
 hash: 2fdb3c355f548c62fdf591c2f0a3efc856863eb96237a003a23fcc6a5170fe5a
-updated: 2016-03-24T09:42:08.45271734Z
+updated: 2016-03-24T09:51:51.097398941Z
 imports:
 - name: github.com/bobziuchkovski/writ
   version: 08e3f25d8bc677e6dcf7b157614c712622556019
@@ -15,4 +15,6 @@ imports:
   version: 0eeaf8392f5b04950925b8a69fe70f110fa7cbfc
 - name: github.com/rcrowley/go-metrics
   version: eeba7bd0dd01ace6e690fa833b3f22aaec29af43
+- name: github.com/vistarmedia/go-datadog
+  version: d05578420bfaf173df31fc00580f57b904df6222
 devImports: []

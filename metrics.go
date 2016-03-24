@@ -2,8 +2,8 @@ package minion // import "github.com/oliverbestmann/go-minion"
 
 import (
 	"errors"
+	"github.com/esailors/go-datadog"
 	"github.com/rcrowley/go-metrics"
-	"github.com/vistarmedia/go-datadog"
 	"log"
 	"os"
 	"os/exec"
