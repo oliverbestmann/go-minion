@@ -11,7 +11,7 @@ func AddPingRoute(router *mux.Router) *mux.Route {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`{"pong":true}`))
-	}).Methods("GET")
+	}).Methods("GET", "HEAD", "OPTIONS")
 }
 
 // AddStaticResourcesRoute uses a FileServer to server static resources
