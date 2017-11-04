@@ -73,15 +73,7 @@ func SetupMetrics(r metrics.Registry, config MetricsConfig) {
 	}
 
 	if config.Datadog.ApiKey != "" {
-		host := config.Hostname
-		if host == "" {
-			var err error
-			if host, err = hostname(); err != nil {
-				log.Print("Could not get hostname")
-			}
-		}
-
-		client := datadog.Client{host, config.Datadog.ApiKey}
+		client := datadog.Client{config.Hostname, config.Datadog.ApiKey}
 		go client.Reporter(r, config.Datadog.Tags).Start(config.SampleInterval)
 	}
 }
