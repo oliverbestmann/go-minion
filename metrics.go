@@ -4,7 +4,6 @@ import (
 	"errors"
 	"github.com/esailors/go-datadog"
 	"github.com/rcrowley/go-metrics"
-	"log"
 	"os"
 	"os/exec"
 	"strings"
